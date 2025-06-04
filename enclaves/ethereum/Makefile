@@ -111,3 +111,6 @@ clean:
 .PHONY: fmt
 fmt:
 	@cargo fmt --all && cd ./enclave && cargo fmt --all
+
+.PHONY: echo
+	@echo "Hello"
