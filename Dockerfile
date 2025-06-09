@@ -1,4 +1,4 @@
-FROM ubuntu:noble-20250415.1
+FROM ubuntu:noble-20250529
 
 ARG INTEL_SGX_SDK_VERSION=2.25.100.3
 LABEL com.intel.sgx.sdk.version=$INTEL_SGX_SDK_VERSION
@@ -17,7 +17,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /app
 
 # ref: https://github.com/intel/linux-sgx/blob/sgx_2.25/README.md#install-the-intelr-sgx-sdk
-RUN apt update && apt install -y build-essential curl file python-is-python3 && \
+RUN apt update && apt install -y \
+    build-essential=12.10ubuntu1 \
+    curl file python-is-python3 && \
     rm -rf /var/lib/apt/lists/*
 
 ENV INTEL_SGX_SDK_VERSION=$INTEL_SGX_SDK_VERSION
@@ -40,10 +42,13 @@ ENV DEPLOYMENT_NETWORK=$DEPLOYMENT_NETWORK
 
 RUN make -C enclaves/$LCP_ELC_TYPE enclave/enclave_sig.dat
 
-RUN mkdir -p /out && \
+ENV OUTPUT_DIR=/out
+RUN mkdir -p $OUTPUT_DIR && \
     cp enclaves/$LCP_ELC_TYPE/enclave/enclave.so \
     enclaves/$LCP_ELC_TYPE/enclave/Enclave.config.xml \
     enclaves/$LCP_ELC_TYPE/enclave/enclave_sig.dat \
-    /out/
+    $OUTPUT_DIR/
+
+RUN bash ./scripts/mrenclave.sh $OUTPUT_DIR
 
 WORKDIR /out

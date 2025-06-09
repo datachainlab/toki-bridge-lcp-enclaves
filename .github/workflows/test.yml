@@ -1,4 +1,4 @@
-name: Build enclave images
+name: Test
 on:
   pull_request:
 
@@ -51,8 +51,8 @@ jobs:
       - id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.repository }}
-          tags: ${{ matrix.enclave }}-${{ matrix.network }}-${{ github.event.pull_request.head.sha }}
+          images: ghcr.io/${{ github.repository }}/${{ matrix.enclave }}/${{ matrix.network }}
+          tags: ${{ github.event.pull_request.head.sha }}
       - uses: docker/build-push-action@v5
         with:
           context: .
@@ -62,5 +62,5 @@ jobs:
             DEPLOYMENT_NETWORK=${{ matrix.network }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:${{ matrix.enclave }}-${{ matrix.network }}-buildCache
-          cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:${{ matrix.enclave }}-${{ matrix.network }}-buildCache,mode=max
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}/${{ matrix.enclave }}/${{ matrix.network }}:buildCache
+          cache-to: type=registry,ref=ghcr.io/${{ github.repository }}/${{ matrix.enclave }}/${{ matrix.network }}:buildCache,mode=max
