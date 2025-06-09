@@ -1,0 +1,30 @@
+name: Release
+on:
+  workflow_dispatch:
+    inputs:
+      enclave:
+        type: string
+        required: true
+        description: 'Enclave to be released'
+      network:
+        type: string
+        required: true
+        default: mainnet
+        options:
+          - testnet
+          - mainnet
+        description: 'The network on which the enclave runs.'
+      tag:
+        type: string
+        required: true
+        description: 'version tag'
+
+jobs:
+  print:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: 'Print the input values'
+        run: |
+          echo ${{ github.event.inputs.enclave }}
+          echo ${{ github.event.inputs.network }}
+          echo ${{ github.event.inputs.tag }}
