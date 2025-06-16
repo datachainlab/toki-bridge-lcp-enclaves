@@ -1,0 +1,71 @@
+name: Test
+on:
+  pull_request:
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-24.04
+    outputs:
+      enclaves: ${{ steps.changed.outputs.enclaves }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: changed
+        run: |
+          diff=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
+          
+          # 1. If there are changes other than the enclaves dir, execute the build for all elcs.
+          # 2. If only the enclaves dir have changed, build only the elc where the changes occurred.
+          if echo $diff | grep -v '^enclaves/' > /dev/null; then
+            enclaves=$(find enclaves -maxdepth 1 -mindepth 1 -type d -printf '%f\n' | jq -R . | jq -s -c .)
+          else
+            enclaves=$(echo $diff \
+              | grep '^enclaves/' \
+              | awk -F'/' '$2 !~/\./ {print $2}' \
+              | sort -u \
+              | jq -R . | jq -s -c .)
+          fi
+    
+          echo "enclaves=$enclaves" >> "$GITHUB_OUTPUT"
+  build:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.enclaves != '[]'
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        enclave: ${{ fromJson(needs.detect-changes.outputs.enclaves) }}
+        network: [testnet, mainnet]
+    permissions:
+      contents: read # For checkout repo
+      packages: write # For Push Image to ghcr.io
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+          logout: true
+      - id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}/${{ matrix.enclave }}/${{ matrix.network }}
+          tags: ${{ github.event.pull_request.head.sha }}
+      - uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: false
+          load: true
+          build-args: |
+            LCP_ELC_TYPE=${{ matrix.enclave }}
+            DEPLOYMENT_NETWORK=${{ matrix.network }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}/${{ matrix.enclave }}/${{ matrix.network }}:buildCache
+          cache-to: type=registry,ref=ghcr.io/${{ github.repository }}/${{ matrix.enclave }}/${{ matrix.network }}:buildCache,mode=max
+      - name: Output MRENCLAVE
+        run: |
+          docker run --rm -t ghcr.io/${{ github.repository }}/${{ matrix.enclave }}/${{ matrix.network }}:${{ github.event.pull_request.head.sha }} \
+          bash -c "/app/scripts/mrenclave.sh /out /tests/mrenclave > mrenclave.log 2>&1 && cat /tests/mrenclave/mrenclave.txt || { cat mrenclave.log; exit 1; }"
