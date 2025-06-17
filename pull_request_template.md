@@ -4,7 +4,9 @@
 
 ## What Changed
 
--
+<!-- If you have additional context beyond the commit messages, please mention it -->
+
+- See each commit
 
 ## Incident Risks
 
