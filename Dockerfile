@@ -1,7 +1,4 @@
-FROM ubuntu:noble-20250529
-
-ARG INTEL_SGX_SDK_VERSION=2.25.100.3
-LABEL com.intel.sgx.sdk.version=$INTEL_SGX_SDK_VERSION
+FROM ghcr.io/datachainlab/toki-bridge-lcp-enclaves/intel-sgx-sdk:70724a0e3fd3818a75b9976da2957fc9b728f41c
 
 ARG RUST_TOOLCHAIN_VERSION=nightly-2024-09-05
 LABEL org.rust-lang.org.toolchain.version=$RUST_TOOLCHAIN_VERSION
@@ -16,17 +13,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /app
 
-# ref: https://github.com/intel/linux-sgx/blob/sgx_2.25/README.md#install-the-intelr-sgx-sdk
-RUN apt update && apt install -y \
-    build-essential=12.10ubuntu1 \
-    curl file python-is-python3 && \
-    rm -rf /var/lib/apt/lists/*
-
-ENV INTEL_SGX_SDK_VERSION=$INTEL_SGX_SDK_VERSION
-
 ADD ./scripts ./scripts
-RUN bash ./scripts/install_build_dependencies.sh
-
 ENV rust_toolchain=$RUST_TOOLCHAIN_VERSION
 RUN bash ./scripts/install_rust.sh
 

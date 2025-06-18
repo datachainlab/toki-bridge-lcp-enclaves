@@ -68,14 +68,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ github.token }}
           logout: true
-      - id: meta
+      - id: metadata
         uses: docker/metadata-action@v5
         with:
           images: ghcr.io/${{ github.repository }}/${{ github.event.inputs.enclave }}/${{ github.event.inputs.network }}
           tags: |
             type=sha,prefix=,format=long
             ${{ github.event.inputs.tag }}
-      - name: Build and Release
+      - name: Build and Push
         uses: docker/build-push-action@v5
         id: docker_build_and_push
         with:
@@ -84,8 +84,8 @@ jobs:
           build-args: |
             LCP_ELC_TYPE=${{ github.event.inputs.enclave }}
             DEPLOYMENT_NETWORK=${{ github.event.inputs.network }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.metadata.outputs.tags }}
+          labels: ${{ steps.metadata.outputs.labels }}
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}/${{ github.event.inputs.enclave }}/${{ github.event.inputs.network }}:buildCache
           cache-to: type=registry,ref=ghcr.io/${{ github.repository }}/${{ github.event.inputs.enclave }}/${{ github.event.inputs.network }}:buildCache,mode=max
       - name: Create Release
