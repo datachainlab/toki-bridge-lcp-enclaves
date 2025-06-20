@@ -15,7 +15,7 @@ openssl genrsa -out $OUTPUT_DIR/private_key.pem -3 3072
 output=$(cat $OUTPUT_DIR/metadata_info.txt | awk '/enclave_css.body.enclave_hash.m:/ {f=1; next} f && /^0x/ {gsub(/0x| /,""); printf $0; next} f && !/^0x/ {exit}')
 if [ -n "$output" ]; then
   if [[ $output =~ ^[0-9a-fA-F]{64}$ ]]; then
-      echo "0x$output" > $OUTPUT_DIR/mrenclave.txt
+      echo "0x$output" > $OUTPUT_DIR/MRENCLAVE
   else
       echo "Invalid format: ${output}" >&2
       exit 1

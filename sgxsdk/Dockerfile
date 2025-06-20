@@ -5,7 +5,7 @@ LABEL com.intel.sgx.sdk.version=$INTEL_SGX_SDK_VERSION
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-WORKDIR /app
+WORKDIR /sgxsdk
 
 # ref: https://github.com/intel/linux-sgx/blob/sgx_2.25/README.md#install-the-intelr-sgx-sdk
 RUN apt update && apt install -y \

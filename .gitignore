@@ -14,6 +14,7 @@
 enclave/Enclave_t.c
 *_t.h
 
-materials/
-remote-signer/remote-signer
 target/
+tests/
+enclaves/**/mrenclaves/*/*
+!enclaves/**/mrenclaves/*/MRENCLAVE
