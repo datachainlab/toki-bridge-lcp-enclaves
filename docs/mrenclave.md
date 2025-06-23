@@ -4,12 +4,6 @@ This document describes how developers should derive and manage `MRENCLAVE` valu
 
 ---
 
-## Purpose
-
-To ensure that unintended changes do not affect the Enclave during CI testing, developers must locally build the Enclave after making any changes and explicitly commit the corresponding `MRENCLAVE` value.
-
----
-
 ## When Does MRENCLAVE Change?
 
 The `MRENCLAVE` value is sensitive to several factors. It may change if any of the following occurs:
