@@ -1,4 +1,4 @@
-FROM ghcr.io/datachainlab/toki-bridge-lcp-enclaves/intel-sgx-sdk:70724a0e3fd3818a75b9976da2957fc9b728f41c
+FROM ghcr.io/datachainlab/toki-bridge-lcp-enclaves/intel-sgx-sdk:cb5743b676b9547d7cd0700de0192a690b90a033
 
 ARG RUST_TOOLCHAIN_VERSION=nightly-2024-09-05
 LABEL org.rust-lang.org.toolchain.version=$RUST_TOOLCHAIN_VERSION
