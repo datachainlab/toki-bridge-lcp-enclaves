@@ -100,4 +100,4 @@ jobs:
           body: |
             ## Docker Image
             1. Image Digest: ${{ steps.docker_build_and_push.outputs.imageid }}
-            2. [Link to Docker Image](https://github.com/${{ github.repository }}/pkgs/container/${{ github.event.repository.name }}%2F${{ github.event.inputs.enclave }}%2F${{ github.event.inputs.network }}?sha256=${{ steps.docker_build_and_push.outputs.digest }})
+            2. [Link to Docker Repository](https://github.com/${{ github.repository }}/pkgs/container/${{ github.event.repository.name }}%2F${{ github.event.inputs.enclave }}%2F${{ github.event.inputs.network }})
