@@ -1,24 +1,22 @@
-#LCP
+# LCP
 **/target
 
-##object file
+## object file
 **/*.o
 
-##library
+## library
 **/*.a
 
-##share object
+## share object
 **/*.so
 **/*.so.*
 !**/enclave.so
 
-##generated proxy
+## generated proxy
 **/*_u.c
 **/*_u.h
 **/enclave/Enclave_t.c
 **/*_t.h
 
-##test data
-enclaves/**/mrenclaves/*/*
-!enclaves/**/mrenclaves/*/MRENCLAVE
+## test data
 tests
