@@ -40,6 +40,7 @@ RUN bash ./scripts/install_rust.sh
 
 SHELL ["/bin/bash", "-c", "-l"]
 
+ADD --chown=$UID:$GID ./buildcommon.mk ./buildcommon.mk
 ADD --chown=$UID:$GID ./buildenv.mk ./buildenv.mk
 ADD --chown=$UID:$GID ./enclaves/$LCP_ELC_TYPE ./enclaves/$LCP_ELC_TYPE
 
