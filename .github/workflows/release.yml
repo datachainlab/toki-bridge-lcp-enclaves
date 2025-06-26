@@ -21,7 +21,7 @@ on:
       tag:
         type: string
         required: true
-        description: 'Tag Name(e.g. v1.2.3)'
+        description: 'Tag Name (e.g. v1.2.3)'
       draft:
         type: boolean
         required: true
