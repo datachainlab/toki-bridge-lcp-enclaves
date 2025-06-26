@@ -1,3 +1,5 @@
+# Source: https://github.com/datachainlab/lcp/blob/main/buildenv.mk
+# Commit: eacb25eb32f5fc30bc66cb5469a7a4e760115c58
 #
 # Copyright (C) 2017-2018 Baidu, Inc. All Rights Reserved.
 #
