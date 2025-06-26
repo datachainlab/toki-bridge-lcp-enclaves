@@ -14,10 +14,10 @@ The `MRENCLAVE` value is sensitive to several factors. It may change if any of t
 4. Changes are made to the Enclave source code or dependencies
 5. `Enclave.config.xml` is modified
 
-> ⚠️ **Note:** The MRENCLAVE can be derived after the Enclave is signed.
+> ⚠️ **Note:** The `MRENCLAVE` can be derived after the Enclave is signed.
 In the workflow, a temporary private key is used as the Enclave signing key for testing purposes.
 This key is different from the actual signing key used in production for toki.finance,
-but the identity of the signing key has no effect on the derivation of the MRENCLAVE.
+but the identity of the signing key has no effect on the derivation of the `MRENCLAVE`.
 
 ---
 
@@ -27,7 +27,7 @@ When any of the above changes occur:
 
 - The developer must build the Enclave locally
 - Derive the corresponding `MRENCLAVE` value
-- Commit the updated `MRENCLAVE` file
+- Commit the updated [mrenclaves.yaml](../mrenclaves.yaml) file
 
 This file is used in the CI workflow triggered by a Pull Request. 
 
@@ -53,7 +53,7 @@ This command will:
 
 Build all Enclaves under the `enclaves` directory
 
-Attempt to update all corresponding MRENCLAVE files
+Attempt to update [mrenclaves.yaml](../mrenclaves.yaml)
 
 ### Case: Localized Changes (Affect One Enclave)
 If only the Enclave's source code, dependencies, or Enclave.config.xml are modified (cases 4–5), you can rebuild the specific Enclave:
@@ -62,4 +62,4 @@ If only the Enclave's source code, dependencies, or Enclave.config.xml are modif
 $ make mrenclave LCP_TYPE=ethereum DEPLOYMENT_NETWORK=mainnet
 ```
 
-If changes are detected, commit the updated MRENCLAVE file to the repository.
+If changes are detected, commit the updated [mrenclaves.yaml](../mrenclaves.yaml) to the repository.
