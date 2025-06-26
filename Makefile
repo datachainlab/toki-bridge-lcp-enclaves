@@ -32,6 +32,8 @@ build:
 
 .PHONY: mrenclave
 mrenclave: build
-	$(DOCKER) run --rm --volume $(PWD)/enclaves/$(LCP_ELC_TYPE)/mrenclaves/$(DEPLOYMENT_NETWORK):/app/tests/mrenclave \
-	$(REPOSITORY)/$(LCP_ELC_TYPE)/$(DEPLOYMENT_NETWORK):$(TAG) \
-    bash -c "/app/scripts/mrenclave.sh /out /app/tests/mrenclave > mrenclave.log 2>&1 && cat /app/tests/mrenclave/MRENCLAVE || { cat mrenclave.log; exit 1; }"
+	mkdir -p $(PWD)/tests/$(LCP_ELC_TYPE)/mrenclaves/$(DEPLOYMENT_NETWORK)
+	$(DOCKER) run --rm $(REPOSITORY)/$(LCP_ELC_TYPE)/$(DEPLOYMENT_NETWORK):$(TAG) \
+    bash -c "/app/scripts/mrenclave.sh /out /app/tests/mrenclave > mrenclave.log 2>&1 && cat /app/tests/mrenclave/MRENCLAVE || { cat mrenclave.log; exit 1; }" > $(PWD)/tests/$(LCP_ELC_TYPE)/mrenclaves/$(DEPLOYMENT_NETWORK)/MRENCLAVE && \
+	yq ".$(LCP_ELC_TYPE).$(DEPLOYMENT_NETWORK) = \"$$(cat $(PWD)/tests/$(LCP_ELC_TYPE)/mrenclaves/$(DEPLOYMENT_NETWORK)/MRENCLAVE)\" | .$(LCP_ELC_TYPE).$(DEPLOYMENT_NETWORK) style=\"double\"" -i mrenclaves.yaml || exit 1
+

@@ -68,9 +68,10 @@ jobs:
           ghcr.io/${{ github.repository }}/${{ matrix.enclave }}/${{ matrix.network }}:${{ github.event.pull_request.head.sha }} \
           bash -c "/app/scripts/mrenclave.sh /out /app/tests/mrenclave > mrenclave.log 2>&1 || { cat mrenclave.log; exit 1; }"
           
-          echo "Local:$(cat enclaves/${{ matrix.enclave }}/mrenclaves/${{ matrix.network }}/MRENCLAVE)"
-          echo "Test: $(cat tests/${{ matrix.enclave }}/mrenclaves/${{ matrix.network }}/MRENCLAVE)"
+          mrenclave_local=$(yq -r .${{ matrix.enclave }}.${{ matrix.network }} < mrenclaves.yaml)
+          mrenclave_test=$(cat tests/${{ matrix.enclave }}/mrenclaves/${{ matrix.network }}/MRENCLAVE)
           
-          diff \
-          enclaves/${{ matrix.enclave }}/mrenclaves/${{ matrix.network }}/MRENCLAVE \
-          tests/${{ matrix.enclave }}/mrenclaves/${{ matrix.network }}/MRENCLAVE
+          echo "Local:$mrenclave_local"
+          echo "Test: $mrenclave_test"
+          
+          [ "$mrenclave_local" = "$mrenclave_test" ]

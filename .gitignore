@@ -16,5 +16,3 @@ enclave/Enclave_t.c
 
 target/
 tests/
-enclaves/**/mrenclaves/*/*
-!enclaves/**/mrenclaves/*/MRENCLAVE
