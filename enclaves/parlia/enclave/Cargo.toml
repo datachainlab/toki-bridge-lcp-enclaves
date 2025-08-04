@@ -17,7 +17,7 @@ testnet = []
 mainnet = []
 
 [dependencies]
-enclave-runtime = { git = "https://github.com/datachainlab/lcp", rev = "v0.2.12", features = ["panic-logging"] }
+enclave-runtime = { git = "https://github.com/datachainlab/lcp", rev = "v0.2.16", features = ["panic-logging"] }
 parlia-elc = { git = "https://github.com/datachainlab/parlia-elc", rev= "v0.3.10", default-features = false }
 
 [patch."crates-io"]
