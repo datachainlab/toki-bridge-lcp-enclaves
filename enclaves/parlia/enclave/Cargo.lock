@@ -114,18 +114,21 @@ checksum = "96d30a06541fbafbc7f82ed10c06164cfbd2c401138f6addd8404629c4b16711"
 [[package]]
 name = "attestation-report"
 version = "0.1.0"
-source = "git+https://github.com/datachainlab/lcp?rev=v0.2.12#a41fceb6d26b4f48c7a0d514e26eb199af2016e1"
+source = "git+https://github.com/datachainlab/lcp?rev=v0.2.17#a6006913123c973d4b1e8b57020df103551f122e"
 dependencies = [
+ "anyhow",
  "base64 0.22.1",
  "chrono",
- "crypto",
+ "crypto 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
  "flex-error",
  "hex",
- "lcp-types",
+ "lcp-types 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
  "pem",
  "serde",
  "serde_json",
+ "serde_with",
  "sgx_types",
+ "webpki",
 ]
 
 [[package]]
@@ -219,6 +222,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "cc"
+version = "1.2.36"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5252b3d2648e5eedbc1a6f501e3c795e07025c1e93bbf8bbdd6eef7f447a6d54"
+dependencies = [
+ "find-msvc-tools",
+ "shlex",
+]
+
+[[package]]
 name = "cfg-if"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -240,10 +253,25 @@ version = "0.1.0"
 source = "git+https://github.com/datachainlab/lcp?rev=v0.2.12#a41fceb6d26b4f48c7a0d514e26eb199af2016e1"
 dependencies = [
  "alloy-sol-types",
- "crypto",
+ "crypto 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.12)",
  "flex-error",
  "hex",
- "lcp-types",
+ "lcp-types 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.12)",
+ "prost",
+ "serde",
+ "sha2 0.10.8",
+]
+
+[[package]]
+name = "commitments"
+version = "0.1.0"
+source = "git+https://github.com/datachainlab/lcp?rev=v0.2.17#a6006913123c973d4b1e8b57020df103551f122e"
+dependencies = [
+ "alloy-sol-types",
+ "crypto 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
+ "flex-error",
+ "hex",
+ "lcp-types 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
  "prost",
  "serde",
  "sha2 0.10.8",
@@ -271,12 +299,12 @@ checksum = "c2459377285ad874054d797f3ccebf984978aa39129f6eafde5cdc8315b612f8"
 [[package]]
 name = "context"
 version = "0.1.0"
-source = "git+https://github.com/datachainlab/lcp?rev=v0.2.12#a41fceb6d26b4f48c7a0d514e26eb199af2016e1"
+source = "git+https://github.com/datachainlab/lcp?rev=v0.2.17#a6006913123c973d4b1e8b57020df103551f122e"
 dependencies = [
- "crypto",
- "lcp-types",
- "light-client",
- "store",
+ "crypto 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
+ "lcp-types 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
+ "light-client 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
+ "store 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
 ]
 
 [[package]]
@@ -298,6 +326,21 @@ checksum = "7a81dae078cea95a014a339291cec439d2f232ebe854a9d672b796c6afafa9b7"
 name = "crypto"
 version = "0.1.0"
 source = "git+https://github.com/datachainlab/lcp?rev=v0.2.12#a41fceb6d26b4f48c7a0d514e26eb199af2016e1"
+dependencies = [
+ "flex-error",
+ "hex",
+ "libsecp256k1",
+ "serde",
+ "serde-big-array",
+ "sgx_types",
+ "tiny-keccak",
+ "zeroize",
+]
+
+[[package]]
+name = "crypto"
+version = "0.1.0"
+source = "git+https://github.com/datachainlab/lcp?rev=v0.2.17#a6006913123c973d4b1e8b57020df103551f122e"
 dependencies = [
  "flex-error",
  "hex",
@@ -439,34 +482,34 @@ checksum = "56ce8c6da7551ec6c462cbaf3bfbc75131ebbfa1c944aeaa9dab51ca1c5f0c3b"
 [[package]]
 name = "ecall-commands"
 version = "0.1.0"
-source = "git+https://github.com/datachainlab/lcp?rev=v0.2.12#a41fceb6d26b4f48c7a0d514e26eb199af2016e1"
+source = "git+https://github.com/datachainlab/lcp?rev=v0.2.17#a6006913123c973d4b1e8b57020df103551f122e"
 dependencies = [
- "commitments",
- "crypto",
+ "commitments 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
+ "crypto 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
  "flex-error",
- "lcp-types",
+ "lcp-types 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
  "serde",
  "serde_with",
  "sgx_types",
- "store",
+ "store 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
 ]
 
 [[package]]
 name = "ecall-handler"
 version = "0.1.0"
-source = "git+https://github.com/datachainlab/lcp?rev=v0.2.12#a41fceb6d26b4f48c7a0d514e26eb199af2016e1"
+source = "git+https://github.com/datachainlab/lcp?rev=v0.2.17#a6006913123c973d4b1e8b57020df103551f122e"
 dependencies = [
  "attestation-report",
  "context",
- "crypto",
+ "crypto 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
  "ecall-commands",
  "enclave-environment",
  "flex-error",
- "lcp-types",
- "light-client",
+ "lcp-types 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
+ "light-client 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
  "sgx_tse",
  "sgx_types",
- "store",
+ "store 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
 ]
 
 [[package]]
@@ -519,17 +562,17 @@ dependencies = [
 [[package]]
 name = "enclave-environment"
 version = "0.1.0"
-source = "git+https://github.com/datachainlab/lcp?rev=v0.2.12#a41fceb6d26b4f48c7a0d514e26eb199af2016e1"
+source = "git+https://github.com/datachainlab/lcp?rev=v0.2.17#a6006913123c973d4b1e8b57020df103551f122e"
 dependencies = [
  "host-api",
- "light-client",
- "store",
+ "light-client 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
+ "store 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
 ]
 
 [[package]]
 name = "enclave-runtime"
 version = "0.1.0"
-source = "git+https://github.com/datachainlab/lcp?rev=v0.2.12#a41fceb6d26b4f48c7a0d514e26eb199af2016e1"
+source = "git+https://github.com/datachainlab/lcp?rev=v0.2.17#a6006913123c973d4b1e8b57020df103551f122e"
 dependencies = [
  "bincode",
  "ecall-commands",
@@ -548,7 +591,7 @@ dependencies = [
 [[package]]
 name = "enclave-utils"
 version = "0.1.0"
-source = "git+https://github.com/datachainlab/lcp?rev=v0.2.12#a41fceb6d26b4f48c7a0d514e26eb199af2016e1"
+source = "git+https://github.com/datachainlab/lcp?rev=v0.2.17#a6006913123c973d4b1e8b57020df103551f122e"
 dependencies = [
  "log",
  "sgx_trts",
@@ -570,6 +613,12 @@ dependencies = [
  "rand_core 0.6.4",
  "subtle",
 ]
+
+[[package]]
+name = "find-msvc-tools"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7fd99930f64d146689264c637b5af2f0233a933bef0d8570e2526bf9e083192d"
 
 [[package]]
 name = "fixed-hash"
@@ -706,13 +755,13 @@ dependencies = [
 [[package]]
 name = "host-api"
 version = "0.1.0"
-source = "git+https://github.com/datachainlab/lcp?rev=v0.2.12#a41fceb6d26b4f48c7a0d514e26eb199af2016e1"
+source = "git+https://github.com/datachainlab/lcp?rev=v0.2.17#a6006913123c973d4b1e8b57020df103551f122e"
 dependencies = [
  "bincode",
  "flex-error",
  "ocall-commands",
  "sgx_types",
- "store",
+ "store 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
 ]
 
 [[package]]
@@ -795,13 +844,39 @@ dependencies = [
 ]
 
 [[package]]
+name = "lcp-proto"
+version = "0.1.0"
+source = "git+https://github.com/datachainlab/lcp?rev=v0.2.17#a6006913123c973d4b1e8b57020df103551f122e"
+dependencies = [
+ "ibc-proto",
+ "prost",
+ "serde",
+]
+
+[[package]]
 name = "lcp-types"
 version = "0.1.0"
 source = "git+https://github.com/datachainlab/lcp?rev=v0.2.12#a41fceb6d26b4f48c7a0d514e26eb199af2016e1"
 dependencies = [
  "flex-error",
  "hex",
- "lcp-proto",
+ "lcp-proto 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.12)",
+ "prost",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "sgx_types",
+ "time",
+]
+
+[[package]]
+name = "lcp-types"
+version = "0.1.0"
+source = "git+https://github.com/datachainlab/lcp?rev=v0.2.17#a6006913123c973d4b1e8b57020df103551f122e"
+dependencies = [
+ "flex-error",
+ "hex",
+ "lcp-proto 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
  "prost",
  "serde",
  "serde_json",
@@ -872,11 +947,24 @@ version = "0.1.0"
 source = "git+https://github.com/datachainlab/lcp?rev=v0.2.12#a41fceb6d26b4f48c7a0d514e26eb199af2016e1"
 dependencies = [
  "bincode",
- "commitments",
+ "commitments 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.12)",
  "derive_more",
  "flex-error",
- "lcp-types",
- "store",
+ "lcp-types 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.12)",
+ "store 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.12)",
+]
+
+[[package]]
+name = "light-client"
+version = "0.1.0"
+source = "git+https://github.com/datachainlab/lcp?rev=v0.2.17#a6006913123c973d4b1e8b57020df103551f122e"
+dependencies = [
+ "bincode",
+ "commitments 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
+ "derive_more",
+ "flex-error",
+ "lcp-types 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
+ "store 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
 ]
 
 [[package]]
@@ -936,10 +1024,10 @@ dependencies = [
 [[package]]
 name = "ocall-commands"
 version = "0.1.0"
-source = "git+https://github.com/datachainlab/lcp?rev=v0.2.12#a41fceb6d26b4f48c7a0d514e26eb199af2016e1"
+source = "git+https://github.com/datachainlab/lcp?rev=v0.2.17#a6006913123c973d4b1e8b57020df103551f122e"
 dependencies = [
  "serde",
- "store",
+ "store 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.17)",
 ]
 
 [[package]]
@@ -1010,7 +1098,7 @@ dependencies = [
  "elliptic-curve",
  "hex-literal",
  "k256",
- "light-client",
+ "light-client 0.1.0 (git+https://github.com/datachainlab/lcp?rev=v0.2.12)",
  "milagro_bls",
  "parlia-ibc-proto",
  "patricia-merkle-trie",
@@ -1245,6 +1333,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "ring"
+version = "0.17.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9babe80d5c16becf6594aa32ad2be8fe08498e7ae60b77de8df700e67f191d7e"
+dependencies = [
+ "cc",
+ "getrandom",
+ "libc",
+ "spin",
+ "untrusted",
+ "windows-sys",
+]
+
+[[package]]
 name = "rlp"
 version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1455,6 +1557,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "shlex"
+version = "1.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0fda2ff0d084019ba4d7c6f371c95d8fd75ce3524c3cb8fb653a3023f6323e64"
+
+[[package]]
 name = "signature"
 version = "2.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1469,6 +1577,12 @@ name = "smallvec"
 version = "1.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "62bb4feee49fdd9f707ef802e22365a35de4b7b299de4763d44bfea899442ff9"
+
+[[package]]
+name = "spin"
+version = "0.9.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6980e8d7511241f8acf4aebddbb1ff938df5eebe98691418c4468d0b72a96a67"
 
 [[package]]
 name = "spki"
@@ -1490,6 +1604,16 @@ checksum = "a2eb9349b6444b326872e140eb1cf5e7c522154d69e7a0ffb0fb81c06b37543f"
 name = "store"
 version = "0.1.0"
 source = "git+https://github.com/datachainlab/lcp?rev=v0.2.12#a41fceb6d26b4f48c7a0d514e26eb199af2016e1"
+dependencies = [
+ "flex-error",
+ "log",
+ "serde",
+]
+
+[[package]]
+name = "store"
+version = "0.1.0"
+source = "git+https://github.com/datachainlab/lcp?rev=v0.2.17#a6006913123c973d4b1e8b57020df103551f122e"
 dependencies = [
  "flex-error",
  "log",
@@ -1682,6 +1806,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f962df74c8c05a667b5ee8bcf162993134c104e96440b663c8daa176dc772d8c"
 
 [[package]]
+name = "untrusted"
+version = "0.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8ecb6da28b8a351d773b68d5825ac39017e680750f980f3a1a85cd8dd28a47c1"
+
+[[package]]
 name = "valuable"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1692,6 +1822,16 @@ name = "version_check"
 version = "0.9.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "49874b5167b65d7193b8aba1567f5c7d93d001cafc34600cee003eda787e483f"
+
+[[package]]
+name = "webpki"
+version = "0.22.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ed63aea5ce73d0ff405984102c42de94fc55a6b75765d621c65262469b3c9b53"
+dependencies = [
+ "ring",
+ "untrusted",
+]
 
 [[package]]
 name = "winapi"
@@ -1714,6 +1854,72 @@ name = "winapi-x86_64-pc-windows-gnu"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
+
+[[package]]
+name = "windows-sys"
+version = "0.48.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "677d2418bec65e3338edb076e806bc1ec15693c5d0104683f2efe857f61056a9"
+dependencies = [
+ "windows-targets",
+]
+
+[[package]]
+name = "windows-targets"
+version = "0.48.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9a2fa6e2155d7247be68c096456083145c183cbbbc2764150dda45a87197940c"
+dependencies = [
+ "windows_aarch64_gnullvm",
+ "windows_aarch64_msvc",
+ "windows_i686_gnu",
+ "windows_i686_msvc",
+ "windows_x86_64_gnu",
+ "windows_x86_64_gnullvm",
+ "windows_x86_64_msvc",
+]
+
+[[package]]
+name = "windows_aarch64_gnullvm"
+version = "0.48.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2b38e32f0abccf9987a4e3079dfb67dcd799fb61361e53e2882c3cbaf0d905d8"
+
+[[package]]
+name = "windows_aarch64_msvc"
+version = "0.48.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dc35310971f3b2dbbf3f0690a219f40e2d9afcf64f9ab7cc1be722937c26b4bc"
+
+[[package]]
+name = "windows_i686_gnu"
+version = "0.48.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a75915e7def60c94dcef72200b9a8e58e5091744960da64ec734a6c6e9b3743e"
+
+[[package]]
+name = "windows_i686_msvc"
+version = "0.48.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8f55c233f70c4b27f66c523580f78f1004e8b5a8b659e05a4eb49d4166cca406"
+
+[[package]]
+name = "windows_x86_64_gnu"
+version = "0.48.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "53d40abd2583d23e4718fddf1ebec84dbff8381c07cae67ff7768bbf19c6718e"
+
+[[package]]
+name = "windows_x86_64_gnullvm"
+version = "0.48.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0b7b52767868a23d5bab768e390dc5f5c55825b6d30b86c844ff2dc7414044cc"
+
+[[package]]
+name = "windows_x86_64_msvc"
+version = "0.48.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ed94fce61571a4006852b7389a063ab983c02eb1bb37b47f8272ce92d06d9538"
 
 [[package]]
 name = "winnow"
