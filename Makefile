@@ -37,3 +37,6 @@ mrenclave: build
     bash -c "/app/scripts/mrenclave.sh /out /app/tests/mrenclave > mrenclave.log 2>&1 && cat /app/tests/mrenclave/MRENCLAVE || { cat mrenclave.log; exit 1; }" > $(PWD)/tests/$(LCP_ELC_TYPE)/mrenclaves/$(DEPLOYMENT_NETWORK)/MRENCLAVE && \
 	yq ".$(LCP_ELC_TYPE).$(DEPLOYMENT_NETWORK) = \"$$(cat $(PWD)/tests/$(LCP_ELC_TYPE)/mrenclaves/$(DEPLOYMENT_NETWORK)/MRENCLAVE)\" | .$(LCP_ELC_TYPE).$(DEPLOYMENT_NETWORK) style=\"double\"" -i mrenclaves.yaml || exit 1
 
+.PHONY: clean
+clean:
+	docker images --filter "reference=$(REPOSITORY)/*/*:$(TAG)" -q | xargs -r docker rmi
