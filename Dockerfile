@@ -1,8 +1,5 @@
 FROM ghcr.io/datachainlab/toki-bridge-lcp-enclaves/intel-sgx-sdk:cb5743b676b9547d7cd0700de0192a690b90a033
 
-ARG RUST_TOOLCHAIN_VERSION=nightly-2024-09-05
-LABEL org.rust-lang.org.toolchain.version=$RUST_TOOLCHAIN_VERSION
-
 ARG LCP_ELC_TYPE
 LABEL finance.toki.lcp.enclave.elc=$LCP_ELC_TYPE
 
@@ -28,21 +25,24 @@ RUN set -eux; \
     fi; \
     useradd -u "$UID" -g "$GID" -m "$USERNAME";
 
-RUN mkdir -p /app && chown $UID:$GID /app
-RUN mkdir -p /out && chown $UID:$GID /out
+ENV RUSTUP_HOME=/usr/local/rustup \
+    CARGO_HOME=/usr/local/cargo \
+    PATH=/usr/local/cargo/bin:$PATH
+
+RUN mkdir -p /app /out $RUSTUP_HOME $CARGO_HOME && \
+    chown $UID:$GID /app /out $RUSTUP_HOME $CARGO_HOME
 
 USER $USERNAME
 WORKDIR /app
 
 ADD --chown=$UID:$GID ./scripts ./scripts
-ENV rust_toolchain=$RUST_TOOLCHAIN_VERSION
-RUN bash ./scripts/install_rust.sh
-
-SHELL ["/bin/bash", "-c", "-l"]
-
 ADD --chown=$UID:$GID ./buildcommon.mk ./buildcommon.mk
 ADD --chown=$UID:$GID ./buildenv.mk ./buildenv.mk
 ADD --chown=$UID:$GID ./enclaves/$LCP_ELC_TYPE ./enclaves/$LCP_ELC_TYPE
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain $(cat ./enclaves/$LCP_ELC_TYPE/rust-toolchain) -y && \
+    rustup component add rust-src && \
+    cargo install xargo
 
 ARG SGX_MODE=HW
 ENV SGX_MODE=$SGX_MODE
