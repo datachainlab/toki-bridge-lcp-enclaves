@@ -20,6 +20,7 @@ jobs:
     if: needs.get-enclaves.outputs.enclaves != '[]'
     runs-on: ubuntu-24.04
     strategy:
+      fail-fast: false
       matrix:
         enclave: ${{ fromJson(needs.get-enclaves.outputs.enclaves) }}
         network: [testnet, mainnet]
