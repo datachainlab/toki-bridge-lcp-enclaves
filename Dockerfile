@@ -41,8 +41,7 @@ ADD --chown=$UID:$GID ./buildenv.mk ./buildenv.mk
 ADD --chown=$UID:$GID ./enclaves/$LCP_ELC_TYPE ./enclaves/$LCP_ELC_TYPE
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain $(cat ./enclaves/$LCP_ELC_TYPE/rust-toolchain) -y && \
-    rustup component add rust-src && \
-    cargo install xargo
+    rustup component add rust-src
 
 ARG SGX_MODE=HW
 ENV SGX_MODE=$SGX_MODE
