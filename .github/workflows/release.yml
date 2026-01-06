@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       enclave:
-        type: string
+        type: choice
         required: true
         description: 'Enclave to be released'
         options:
@@ -11,7 +11,7 @@ on:
           - optimism
           - parlia
       network:
-        type: string
+        type: choice
         required: true
         default: mainnet
         options:
